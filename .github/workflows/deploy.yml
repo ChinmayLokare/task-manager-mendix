@@ -41,7 +41,7 @@ jobs:
 
       - name: Package Lambda
         run: |
-          cd lambda
+          cd app
           zip -r ../function.zip handler.py
 
       - name: Deploy Lambda

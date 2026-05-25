@@ -2,7 +2,7 @@ import json
 import boto3
 import pytest
 from moto import mock_dynamodb
-from lambda.handler import lambda_handler
+from app.handler import lambda_handler
 
 @mock_dynamodb
 def test_get_tasks_empty():
