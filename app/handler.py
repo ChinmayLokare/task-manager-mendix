@@ -1,34 +1,36 @@
 import json
 import boto3
-import uuid 
+import uuid
 from datetime import datetime
 
-dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('tasks')
+def get_table():
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    return dynamodb.Table('tasks')
 
 def lambda_handler(event, context):
     method = event['httpMethod']
-
+    
     if method == 'GET':
         return get_tasks()
     elif method == 'POST':
         body = json.loads(event['body'])
         return create_task(body)
     else:
-        return response(405,{'error':'Method not allowed'})
-    
+        return response(405, {'error': 'Method not allowed'})
+
 def get_tasks():
+    table = get_table()
     result = table.scan()
     return response(200, result['Items'])
 
 def create_task(body):
+    table = get_table()
     task = {
-        'task_id':str(uuid.uuid4()),
-        'title':body['title'],
-        'status':'pending',
-        'created_at':datetime.utcnow().isoformat()
+        'task_id': str(uuid.uuid4()),
+        'title': body['title'],
+        'status': 'pending',
+        'created_at': datetime.utcnow().isoformat()
     }
-
     table.put_item(Item=task)
     return response(201, task)
 
