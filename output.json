@@ -1,0 +1,1 @@
+{"statusCode": 201, "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}, "body": "{\"task_id\": \"7b7e9941-e7ce-4841-8f38-90f7a3389102\", \"title\": \"My first task\", \"status\": \"pending\", \"created_at\": \"2026-05-25T15:40:17.478067\"}"}
